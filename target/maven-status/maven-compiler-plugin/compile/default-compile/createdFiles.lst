@@ -1,1 +1,6 @@
+com/cgti/model/Rol.class
+com/cgti/model/Usuario.class
+com/cgti/model/Alumno.class
 com/cgti/Main.class
+com/cgti/model/Docente.class
+com/cgti/model/Administrador.class
