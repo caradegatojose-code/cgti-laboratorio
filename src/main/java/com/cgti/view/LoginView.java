@@ -35,7 +35,7 @@ public class LoginView {
             var usuario = service.buscarPorCorreo(correo);
             if (usuario.isPresent() && 
                 usuario.get().getContrasena().equals(contrasena)) {
-                lblMensaje.setText("Bienvenido " + usuario.get().getNombre());
+                new DashboardView().mostrar(stage, usuario.get());
             } else {
                 lblMensaje.setText("Correo o contraseña incorrectos");
             }
