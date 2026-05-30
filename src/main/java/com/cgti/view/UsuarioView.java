@@ -38,13 +38,15 @@ public class UsuarioView {
         tabla.setItems(FXCollections.observableArrayList(usuarios));
 
         // Botones
+        Button btnNuevo = new Button("Nuevo Usuario");
+        btnNuevo.setOnAction(e -> new RegistroUsuarioView().mostrar(stage, usuarioActual));
         Button btnRegresar = new Button("Regresar");
         btnRegresar.setOnAction(e -> new DashboardView().mostrar(stage, usuarioActual));
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20));
-        layout.getChildren().addAll(new Label("Gestión de Usuarios"), tabla, btnRegresar);
-
+        layout.getChildren().addAll(new Label("Gestión de Usuarios"), tabla, btnNuevo, btnRegresar);
+        
         Scene scene = new Scene(layout, 700, 500);
         stage.setTitle("Usuarios - CGTI");
         stage.setScene(scene);
