@@ -1,5 +1,8 @@
+com/cgti/view/LoginView.class
+com/cgti/repository/UsuarioRepository.class
 com/cgti/model/Rol.class
 com/cgti/model/Usuario.class
+com/cgti/service/UsuarioService.class
 com/cgti/model/Alumno.class
 com/cgti/Main.class
 com/cgti/model/Docente.class
