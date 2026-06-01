@@ -26,6 +26,7 @@ public class RegistroView {
         cmbLab.setItems(FXCollections.observableArrayList(labRepo.listarTodos()));
 
         Button btnEntrada = new Button("Registrar Entrada");
+        Button btnSalida = new Button("registrar salida");
         Button btnRegresar = new Button("Regresar");
         Label lblMensaje = new Label("");
 
@@ -41,7 +42,12 @@ public class RegistroView {
             layout.getChildren().addAll(new Label("Propósito:"), cmbProposito);
         }
 
-        layout.getChildren().addAll(btnEntrada, lblMensaje, btnRegresar);
+        layout.getChildren().addAll(btnEntrada, btnSalida, lblMensaje, btnRegresar);
+
+        btnSalida.setOnAction(e -> {
+        String resultado = registroService.registrarSalida(usuario.getId());
+        lblMensaje.setText(resultado);
+        });
 
         btnEntrada.setOnAction(e -> {
             if (cmbLab.getValue() == null) {

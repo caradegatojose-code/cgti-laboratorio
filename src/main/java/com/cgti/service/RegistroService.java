@@ -33,5 +33,14 @@ public class RegistroService {
 
     public List<Registro> listarPorUsuario(Long usuarioId) {
         return repo.listarPorUsuario(usuarioId);
+    } 
+    public String registrarSalida(Long usuarioId) {
+        Registro registro = repo.buscarRegistroActivo(usuarioId);
+        if (registro == null) {
+            return "No tienes una entrada activa";
+        }
+        registro.setHoraSalida(LocalDateTime.now());
+        repo.guardar(registro);
+        return "Salida registrada correctamente";
     }
 }

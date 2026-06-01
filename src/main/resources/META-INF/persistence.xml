@@ -13,8 +13,7 @@
         <class>com.cgti.model.Laboratorio</class>
         <class>com.cgti.model.Equipo</class>
         <class>com.cgti.model.Software</class>
-        <class>com.cgti.model.RegistroDocente</class>
-        <class>com.cgti.model.RegistroAlumno</class>
+        <class>com.cgti.model.Registro</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
