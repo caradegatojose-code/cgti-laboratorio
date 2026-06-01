@@ -17,6 +17,7 @@
         <class>com.cgti.model.Apartado</class>
         <class>com.cgti.model.EstadoApartado</class>
         <class>com.cgti.model.DiaSemana</class>
+        <class>com.cgti.model.HorarioDocente</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
