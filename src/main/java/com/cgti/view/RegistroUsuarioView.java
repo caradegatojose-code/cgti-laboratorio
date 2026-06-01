@@ -66,7 +66,12 @@ public class RegistroUsuarioView {
                 return;
             }
 
-            Usuario nuevo = new Usuario();
+            Usuario nuevo;
+              switch (cmbRol.getValue()) {
+              case DOCENTE -> nuevo = new Docente();
+              case ALUMNO -> nuevo = new Alumno();
+              default -> nuevo = new Administrador();
+            }
             nuevo.setNombre(txtNombre.getText());
             nuevo.setNombrePaterno(txtPaterno.getText());
             nuevo.setNombreMaterno(txtMaterno.getText());
@@ -75,7 +80,6 @@ public class RegistroUsuarioView {
             nuevo.setCorreo(txtCorreo.getText());
             nuevo.setContrasena(txtContrasena.getText());
             nuevo.setRol(cmbRol.getValue());
-
             String resultado = service.registrar(nuevo);
             lblMensaje.setText(resultado);
 

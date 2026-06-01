@@ -1,5 +1,5 @@
 package com.cgti.view;
-
+import com.cgti.model.Docente;
 import com.cgti.model.Usuario;
 import com.cgti.model.Rol;
 import javafx.geometry.Insets;
@@ -24,11 +24,12 @@ public class DashboardView {
             menu.getChildren().add(btnUsuarios);
         } else if (usuario.getRol() == Rol.DOCENTE) {
             Button btnRegistrar = new Button("Registrar Entrada/Salida");
+            btnRegistrar.setOnAction(e -> new RegistroView().mostrar(stage, usuario));
             menu.getChildren().add(btnRegistrar);
         } else if (usuario.getRol() == Rol.ALUMNO) {
-            Button btnConsultar = new Button("Consultar Laboratorios");
-            menu.getChildren().add(btnConsultar);
-        }
+            Button btnConsultar = new Button("Registrar uso de Laboratorio");
+            btnConsultar.setOnAction(e -> new RegistroView().mostrar(stage, usuario));
+            menu.getChildren().add(btnConsultar);        }
 
         // Cerrar sesión
         btnCerrarSesion.setOnAction(e -> new LoginView().mostrar(stage));
