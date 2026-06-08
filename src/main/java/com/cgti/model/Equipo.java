@@ -1,8 +1,8 @@
-package com.cgti.model;
-import jakarta.persistence.*;
-import java.util.List;
+package com.cgti.model; // pertenece al paquete 
+import jakarta.persistence.*; // permite mapeo en base de datos
+import java.util.List; // Importa la interfaz List del paquete se usa para las listas 
 
-@Entity
+@Entity // n
 public class Equipo {
   
   @Id
