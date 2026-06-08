@@ -1,40 +1,42 @@
-package com.cgti.model;
+package com.cgti.model; // pertenece al paquete 
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.*; // permite el mapeo en base de datos
+import java.time.LocalDateTime; // 
 
-@Entity
+@Entity // nombre en base de datos
 public class Registro {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // valor primario
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // genera autoaticamente el valor
     private Long id;
 
     private LocalDateTime horaEntrada;
     private LocalDateTime horaSalida;
     private String proposito;
 
-    @ManyToOne
-    private Laboratorio laboratorio;
+    @ManyToOne // uno a muchos
+    private Laboratorio laboratorio; // un registro pertenece a un lavoratorii
 
     @ManyToOne
-    private Usuario usuario;
+    private Usuario usuario; // un registro pertenece a un usuario
+
+    // getters y setters
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public LocalDateTime getHoraEntrada() { return horaEntrada; }
-    public void setHoraEntrada(LocalDateTime h) { this.horaEntrada = h; }
+    public void setHoraEntrada(LocalDateTime horaEntrada) { this.horaEntrada = horaEntrada; }
 
     public LocalDateTime getHoraSalida() { return horaSalida; }
-    public void setHoraSalida(LocalDateTime h) { this.horaSalida = h; }
+    public void setHoraSalida(LocalDateTime  horaSalida) { this.horaSalida =  horaSalida; }
 
     public String getProposito() { return proposito; }
     public void setProposito(String proposito) { this.proposito = proposito; }
 
-    public Laboratorio getLaboratorio() { return laboratorio; }
-    public void setLaboratorio(Laboratorio l) { this.laboratorio = l; }
+    public Laboratorio getLaboratorio() { return plaboratorio; }
+    public void setLaboratorio(Laboratorio laboratorio) { this.laboratorio = laboratorio; }
 
     public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario u) { this.usuario = u; }
+    public void setUsuario(Usuario  usuario) { this.usuario =  usuario; }
 }
