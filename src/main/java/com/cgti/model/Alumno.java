@@ -1,8 +1,8 @@
-package com.cgti.model;
-import jakarta.persistence.*;
+package com.cgti.model; // pertenece al paquete 
+import jakarta.persistence.*; // permite mapeo en base de datos
 
-@Entity
-public class Alumno extends Usuario {
+@Entity // nombre en base de datos
+public class Alumno extends Usuario { // alumno hereda atributos de Usuario
   
   private String  matricula;
   private int cuatrimestre;
