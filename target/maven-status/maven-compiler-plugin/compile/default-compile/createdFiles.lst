@@ -1,13 +1,11 @@
 com/cgti/view/LoginView.class
-com/cgti/view/HorarioView.class
 com/cgti/service/ApartadoService.class
-com/cgti/repository/HorarioRepository.class
 com/cgti/Main.class
-com/cgti/model/HorarioDocente.class
-com/cgti/model/Docente.class
 com/cgti/view/RegistroUsuarioView.class
 com/cgti/repository/UsuarioRepository.class
+com/cgti/view/RegistroAlumnoView.class
 com/cgti/model/Rol.class
+com/cgti/view/InicioView.class
 com/cgti/view/RegistroUsuarioView$1.class
 com/cgti/repository/ApartadoRepository.class
 com/cgti/model/DiaSemana.class
@@ -29,3 +27,4 @@ com/cgti/service/RegistroService.class
 com/cgti/service/UsuarioService.class
 com/cgti/repository/EquipoRepository.class
 com/cgti/model/Laboratorio.class
+com/cgti/view/AlumnoAccesoView.class

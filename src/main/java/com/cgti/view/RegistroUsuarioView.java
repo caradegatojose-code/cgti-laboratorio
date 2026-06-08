@@ -68,7 +68,6 @@ public class RegistroUsuarioView {
 
             Usuario nuevo;
               switch (cmbRol.getValue()) {
-              case DOCENTE -> nuevo = new Docente();
               case ALUMNO -> nuevo = new Alumno();
               default -> nuevo = new Administrador();
             }

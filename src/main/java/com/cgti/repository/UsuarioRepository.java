@@ -4,6 +4,7 @@ import com.cgti.model.Usuario;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.Optional;
+import jakarta.persistence.NoResultException;
 
 public class UsuarioRepository {
 
@@ -55,4 +56,18 @@ public class UsuarioRepository {
         em.getTransaction().commit();
         em.close();
     }
+    public Optional<Usuario> buscarPorMatricula(String matricula) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        Usuario u = em.createQuery(
+            "SELECT a FROM Alumno a WHERE a.matricula = :matricula", Usuario.class)
+            .setParameter("matricula", matricula)
+            .getSingleResult();
+        return Optional.of(u);
+    } catch (NoResultException e) {
+        return Optional.empty();
+    } finally {
+        em.close();
+    }
+}
 }

@@ -31,4 +31,7 @@ public class UsuarioService { // verificaciones de existencias
         repo.eliminar(id);
         return "Usuario eliminado correctamente";
     }
+    public Optional<Usuario> buscarPorMatricula(String matricula) {
+    return repo.buscarPorMatricula(matricula);
+}
 }
