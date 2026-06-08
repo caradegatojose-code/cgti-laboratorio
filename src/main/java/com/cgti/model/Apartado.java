@@ -1,53 +1,54 @@
-package com.cgti.model;
+package com.cgti.model; // pertenece a pacquete
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.*; // permite mapeo en base de datos
+import java.time.LocalDateTime; // libreria importada para las fechas
 
-@Entity
+@Entity // nombre en base de datos
 public class Apartado {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //  clave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // el valor se genera automáticamente por la base de datos
     private Long id;
 
-    @ManyToOne
-    private Usuario usuario;
+    @ManyToOne // mucho a uno 
+    private Usuario usuario; // muchos apartados pueden pertenecer a un usuario
 
     @ManyToOne
-    private Laboratorio laboratorio;
-
+    private Laboratorio laboratorio; // muchos apartados pueden estar asociados al mismo laboratorio
+    
     @ManyToOne
-    @JoinColumn(nullable = true)
-    private Equipo equipo;
+    private Equipo equipo; // muchos apartados pueden pertenecer a un equi´po
 
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
     private String proposito;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //  el enum EstadoApartado se almacena como String en la base de datos 
     private EstadoApartado estado;
+
+    // geters y seters
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario u) { this.usuario = u; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
     public Laboratorio getLaboratorio() { return laboratorio; }
-    public void setLaboratorio(Laboratorio l) { this.laboratorio = l; }
+    public void setLaboratorio(Laboratorio laboratorio) { this.laboratorio = laboratorio; }
 
     public Equipo getEquipo() { return equipo; }
-    public void setEquipo(Equipo e) { this.equipo = e; }
+    public void setEquipo(Equipo equipo) { this.equipo = equipo; }
 
     public LocalDateTime getFechaInicio() { return fechaInicio; }
-    public void setFechaInicio(LocalDateTime f) { this.fechaInicio = f; }
+    public void setFechaInicio(LocalDateTime fechaInicio) { this.fechaInicio = fechaInicio; }
 
     public LocalDateTime getFechaFin() { return fechaFin; }
-    public void setFechaFin(LocalDateTime f) { this.fechaFin = f; }
+    public void setFechaFin(LocalDateTime fechaFin) { this.fechaFin = fechaFin; }
 
     public String getProposito() { return proposito; }
-    public void setProposito(String p) { this.proposito = p; }
+    public void setProposito(String proposito) { this.proposito = proposito; }
 
     public EstadoApartado getEstado() { return estado; }
-    public void setEstado(EstadoApartado e) { this.estado = e; }
+    public void setEstado(EstadoApartado  estado) { this.estado =  estado; }
 }
