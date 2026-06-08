@@ -2,19 +2,19 @@ package com.cgti.model; // pertenece al paquete
 import jakarta.persistence.*; // permite mapeo en base de datos
 import java.util.List; // Importa la interfaz List del paquete se usa para las listas 
 
-@Entity // n
+@Entity // nombre en base de datos
 public class Equipo {
   
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id // clave primaria
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // genera automaticamente un valor 
   private Long id;
   private String nombreEqp;
   private String observacion; 
 
-  @ManyToOne
-  private Laboratorio laboratorio;
+  @ManyToOne // uno a muchos
+  private Laboratorio laboratorio; // muchos equipos pertenecen a un laboratorio
 
-  @ManyToMany(mappedBy = "equipos")
+  @ManyToMany(mappedBy = "equipos") // muchos equipós pertenecen a muchos softwares y relacion inversa el sofware
   private List<Software> softwares;
 
   public List<Software> getSoftwares() { return softwares; }
