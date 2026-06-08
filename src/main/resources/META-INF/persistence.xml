@@ -12,7 +12,7 @@
         <class>com.cgti.model.Administrador</class>
         <class>com.cgti.model.Laboratorio</class>
         <class>com.cgti.model.Equipo</class>
-        <class>com.cgti.model.Software</class>
+        <class>com.cgti.model.TipoSoftware</class>
         <class>com.cgti.model.Registro</class>
         <class>com.cgti.model.Apartado</class>
         <class>com.cgti.model.EstadoApartado</class>
