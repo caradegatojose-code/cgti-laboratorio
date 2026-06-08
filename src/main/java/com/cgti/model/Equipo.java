@@ -14,8 +14,11 @@ public class Equipo {
   @ManyToOne // uno a muchos
   private Laboratorio laboratorio; // muchos equipos pertenecen a un laboratorio
 
-  @ManyToMany(mappedBy = "equipos") // muchos equipós pertenecen a muchos softwares y relacion inversa el sofware
-  private List<Software> softwares;
+  @ElementCollection // En la base de datos se creará una tabla separada para guardar los valores del enum, con una clave foránea hacia la tabla equipo
+  @Enumerated(EnumType.STRING)//  en enum los datos son String
+  private List<TipoSoftware> softwares;
+  
+  //setters y geters
 
   public List<Software> getSoftwares() { return softwares; }
   public void setSoftwares(List<Software> softwares) { this.softwares = softwares; }
