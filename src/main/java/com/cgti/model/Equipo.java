@@ -20,8 +20,8 @@ public class Equipo {
   
   //setters y geters
 
-  public List<Software> getSoftwares() { return softwares; }
-  public void setSoftwares(List<Software> softwares) { this.softwares = softwares; }
+  public List<TipoSoftware> getSoftwares() { return softwares; }
+  public void setSoftwares(List<TipoSoftware> softwares) { this.softwares = softwares; }
 
   public Long getId(){return id;}
   public void setId (Long id){this.id = id ;}
