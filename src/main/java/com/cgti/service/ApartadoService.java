@@ -52,18 +52,6 @@ public class ApartadoService {
         return "Máquina apartada, esperando aprobación";
     }
 
-    // Admin aprueba o rechaza
-    public void cambiarEstado(Long apartadoId, EstadoApartado nuevoEstado) {
-        List<Apartado> lista = repo.listarTodos();
-        lista.stream()
-            .filter(a -> a.getId().equals(apartadoId))
-            .findFirst()
-            .ifPresent(a -> {
-                a.setEstado(nuevoEstado);
-                repo.guardar(a);
-            });
-    }
-
     public List<Apartado> listarTodos() { return repo.listarTodos(); }
 
     public List<Apartado> listarPorUsuario(Long usuarioId) {
