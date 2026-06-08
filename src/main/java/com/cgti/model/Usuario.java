@@ -1,15 +1,16 @@
-package com.cgti.model;
+package com.cgti.model; // pertenece al paquete 
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; // mapeo en base de datos
 import java.time.LocalDate;
 import java.time.Period;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario {
+@Entity // crea la entidad en base de datos
+@Inheritance(strategy = InheritanceType.JOINED) //iene su propia tabla, y cada subclase tiene su propia tabla adicional, vinculada por clave foránea "el es el padre "
+    
+public class Usuario { // crea la clase Usuario
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // clave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // se genera automaticamnete la cave primaria
     private Long id;
 
     private String nombrePaterno;
@@ -17,21 +18,22 @@ public class Usuario {
     private String nombre;
     private LocalDate fechaNacimiento;
 
-    @Column(nullable = true)
+    @Column(nullable = true) // no es obligatorio el numero de telefono 
     private String telefono;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false) // es obligatorio el correo y tiene que ser unico
     private String correo;
 
     private String contrasena;
 
-    @Enumerated(EnumType.STRING)
-    private Rol rol;
+    @Enumerated(EnumType.STRING) // en el enum los valores son String
+    private Rol rol; // el rol viene del rol
 
-    @Transient
+    @Transient // dato calculado no guardado 
     public int getEdad() {
         return Period.between(this.fechaNacimiento, LocalDate.now()).getYears();
     }
+    //geters y setters 
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
