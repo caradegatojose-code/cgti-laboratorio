@@ -1,19 +1,19 @@
-package com.cgti.model;
+package com.cgti.model; // pertenece al paquete 
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.persistence.*; // permite mapero en base de datos
+import java.util.List; // permite usar lista 
 
-@Entity
-public class Software {
+@Entity // crea la entidad en base de datos
+public class Software { // crea la clase 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // llave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // genera la llave primaria
     private Long id;
 
     private String nombreSoft;
 
-    @ManyToMany
-    @JoinTable(
+    @ManyToMany // muchos a muchos
+    @JoinTable(                                       //*genera una tabla de relaxcion entre sofware y equipo donde se intercambian las llaves primarias *//
         name = "equipo_software",
         joinColumns = @JoinColumn(name = "software_id"),
         inverseJoinColumns = @JoinColumn(name = "equipo_id")
