@@ -1,6 +1,6 @@
-package com.cgti.model;
-import jakarta.persistence.*;
+package com.cgti.model; // pertenece al paquete 
+import jakarta.persistence.*; // permite el mapeo
 
-@Entity
-public class Administrador extends Usuario {
+@Entity // nombre en base de datos
+public class Administrador extends Usuario { // Administardor hereda todas las funciones de usuario
 }
