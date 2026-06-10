@@ -33,24 +33,21 @@ public class ApartadoRepository {
         EntityManager em = emf.createEntityManager(); // crea una conexion activa con base de datos
         List<Apartado> lista = em.createQuery(
             "SELECT a FROM Apartado a WHERE a.usuario.id = :id", Apartado.class) // vuelve a pedir los apartados pero esta ves filtrado op id 
-            .setParameter("id", usuarioId)
-            .getResultList();
-        em.close();
-        return lista;
+            .setParameter("id", usuarioId) // los parametros de el filtrado 
+            .getResultList();// ejecuta y regresa toda la lista 
+        em.close();// cierra conexion
+        return lista;// regresa la lista que pide la clase 
     }
 
-    /**
-     * Revisa si un laboratorio ya está apartado (y aprobado) en el horario indicado.
-     * Devuelve true si hay choque de horario, false si está libre.
-     */
+
     public boolean laboratorioOcupado(String labNombre, LocalDateTime inicio, LocalDateTime fin) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();  // crea una conexion activa con base de datos
         long count = em.createQuery(
-            "SELECT COUNT(a) FROM Apartado a WHERE a.laboratorio = :labNombre " +
-            "AND a.estado = :estado " +
-            "AND a.fechaInicio < :fin AND a.fechaFin > :inicio", Long.class)
-            .setParameter("labNombre", com.cgti.model.Laboratorio.valueOf(labNombre))
-            .setParameter("estado", EstadoApartado.APROBADO) // ✔ usando el enum
+            "SELECT COUNT(a) FROM Apartado a WHERE a.laboratorio = :labNombre " +   /** Cuenta cuántos apartados existen donde
+            "AND a.estado = :estado " +                                              * el laboratorio sea ese, el estado sea APROBADO, 
+            "AND a.fechaInicio < :fin AND a.fechaFin > :inicio", Long.class)         * y el horario se choque con el que estoy pidiendo */
+            .setParameter("labNombre", com.cgti.model.Laboratorio.valueOf(labNombre)) // Ay que convertir el enum a un valor para que la base de datos lo detecte
+            .setParameter("estado", EstadoApartado.APROBADO) //  usando el enum
             .setParameter("inicio", inicio)
             .setParameter("fin", fin)
             .getSingleResult();
