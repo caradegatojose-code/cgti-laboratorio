@@ -40,37 +40,19 @@ public class ApartadoRepository {
     }
 
 
-    public boolean laboratorioOcupado(String labNombre, LocalDateTime inicio, LocalDateTime fin) {
-        EntityManager em = emf.createEntityManager();  // crea una conexion activa con base de datos
-        long count = em.createQuery(
-            "SELECT COUNT(a) FROM Apartado a WHERE a.laboratorio = :labNombre " +   /** Cuenta cuántos apartados existen donde
-            "AND a.estado = :estado " +                                              * el laboratorio sea ese, el estado sea APROBADO, 
-            "AND a.fechaInicio < :fin AND a.fechaFin > :inicio", Long.class)         * y el horario se choque con el que estoy pidiendo */
-            .setParameter("labNombre", com.cgti.model.Laboratorio.valueOf(labNombre)) // Ay que convertir el enum a un valor para que la base de datos lo detecte
-            .setParameter("estado", EstadoApartado.APROBADO) //  usando el enum
-            .setParameter("inicio", inicio)
-            .setParameter("fin", fin)
-            .getSingleResult();
-        em.close();
-        return count > 0;
-    }
-
-    /**
-     * Revisa si un equipo específico ya está apartado (y aprobado) en el horario indicado.
-     * Devuelve true si hay choque de horario, false si está libre.
-     */
-    public boolean equipoOcupado(Long equipoId, LocalDateTime inicio, LocalDateTime fin) {
-        EntityManager em = emf.createEntityManager();
-        long count = em.createQuery(
-            "SELECT COUNT(a) FROM Apartado a WHERE a.equipo.id = :equipoId " +
-            "AND a.estado = :estado " +                      // ✔ corregido: ya no es String
+     
+    public boolean equipoOcupado(Long equipoId, LocalDateTime inicio, LocalDateTime fin) { // regresa true o falso dependiendo los parametros 
+        EntityManager em = emf.createEntityManager(); // crea la conexion de datos 
+        long count = em.createQuery( 
+            "SELECT COUNT(a) FROM Apartado a WHERE a.equipo.id = :equipoId " + // cuenta cuatos apardatos al equipo existen y que no chuqeun en horarios 
+            "AND a.estado = :estado " +                      
             "AND a.fechaInicio < :fin AND a.fechaFin > :inicio", Long.class)
-            .setParameter("equipoId", equipoId)
-            .setParameter("estado", EstadoApartado.APROBADO) // ✔ usando el enum igual que laboratorioOcupado
-            .setParameter("inicio", inicio)
-            .setParameter("fin", fin)
-            .getSingleResult();
-        em.close();
-        return count > 0;
+            .setParameter("equipoId", equipoId) // pide el id de maquina 
+            .setParameter("estado", EstadoApartado.APROBADO) // solo los apartdados cuentan 
+            .setParameter("inicio", inicio) // pide la hora solicitada 
+            .setParameter("fin", fin) // pide la hora de fin 
+            .getSingleResult(); //  trae el valor
+        em.close(); // cierra conecio 
+        return count > 0; // si hay mas de 1 count entonces ay choque no se puede aprobar 
     }
 }
