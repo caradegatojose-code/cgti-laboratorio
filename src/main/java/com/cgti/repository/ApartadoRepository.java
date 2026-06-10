@@ -2,51 +2,37 @@ package com.cgti.repository; // pertenece al paquete
 
 import com.cgti.model.Apartado; // importamos la clase apartado 
 import com.cgti.model.EstadoApartado; // importamos el enum directamente
-import jakarta.persistence.*;
+import jakarta.persistence.*; // permite la conexion a base de datos 
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Clase que se comunica con la base de datos para todo lo relacionado con apartados.
- * Aquí se guardan, consultan y verifican disponibilidades.
- */
 public class ApartadoRepository {
+    private EntityManagerFactory emf = // conectamos con la base de datos 
+        Persistence.createEntityManagerFactory("cgtiPU"); // el nombre de la base de datos 
 
-    // Conexión a la base de datos definida en persistence.xml
-    private EntityManagerFactory emf =
-        Persistence.createEntityManagerFactory("cgtiPU");
-
-    /**
-     * Guarda un apartado nuevo o actualiza uno existente.
-     * Si ya tiene ID lo actualiza, si no lo crea.
-     */
-    public void guardar(Apartado apartado) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.merge(apartado);
-        em.getTransaction().commit();
-        em.close();
+    public void guardar(Apartado apartado) { // para guardar en base de datos el apartado 
+        EntityManager em = emf.createEntityManager(); // crea una conexion activa con base de datos para crear el guardado 
+        em.getTransaction().begin(); // le avisa ala base de datos que abra cambios 
+        em.merge(apartado); // si existe actualiza , si es nuevo crealo 
+        em.getTransaction().commit(); // confirma cambios 
+        em.close(); // cierra conexion 
     }
 
-    /**
-     * Regresa la lista completa de todos los apartados en la base de datos.
-     */
-    public List<Apartado> listarTodos() {
-        EntityManager em = emf.createEntityManager();
-        List<Apartado> lista = em.createQuery(
-            "SELECT a FROM Apartado a", Apartado.class)
-            .getResultList();
-        em.close();
-        return lista;
+    
+    public List<Apartado> listarTodos() { 
+        EntityManager em = emf.createEntityManager();// crea una conexion activa con base de datos 
+        List<Apartado> lista = em.createQuery( //le pide a base de datos que le de 
+            "SELECT a FROM Apartado a", Apartado.class) // la lista de todos los apartados existentes 
+            .getResultList(); // ejecuta y regresa toda la lista 
+        em.close();  // cierra conexion 
+        return lista; // regresa la lista que pide la clase 
     }
 
-    /**
-     * Regresa solo los apartados que pertenecen a un usuario en específico.
-     */
+   
     public List<Apartado> listarPorUsuario(Long usuarioId) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager(); // crea una conexion activa con base de datos
         List<Apartado> lista = em.createQuery(
-            "SELECT a FROM Apartado a WHERE a.usuario.id = :id", Apartado.class)
+            "SELECT a FROM Apartado a WHERE a.usuario.id = :id", Apartado.class) // vuelve a pedir los apartados pero esta ves filtrado op id 
             .setParameter("id", usuarioId)
             .getResultList();
         em.close();
