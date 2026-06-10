@@ -2,7 +2,6 @@ package com.cgti.view;
 
 import com.cgti.model.*;
 import com.cgti.service.RegistroService;
-import com.cgti.repository.LaboratorioRepository;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,8 +21,7 @@ public class RegistroView {
 
         Label lblLab = new Label("Selecciona laboratorio:");
         ComboBox<Laboratorio> cmbLab = new ComboBox<>();
-        LaboratorioRepository labRepo = new LaboratorioRepository();
-        cmbLab.setItems(FXCollections.observableArrayList(labRepo.listarTodos()));
+        cmbLab.getItems().addAll(Laboratorio.values());
 
         Button btnEntrada = new Button("Registrar Entrada");
         Button btnSalida = new Button("registrar salida");

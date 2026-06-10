@@ -14,8 +14,8 @@ public class Registro {
     private LocalDateTime horaSalida;
     private String proposito;
 
-    @ManyToOne // uno a muchos
-    private Laboratorio laboratorio; // un registro pertenece a un lavoratorii
+    @Enumerated(EnumType.STRING)
+    private Laboratorio laboratorio;
 
     @ManyToOne
     private Usuario usuario; // un registro pertenece a un usuario
@@ -34,7 +34,7 @@ public class Registro {
     public String getProposito() { return proposito; }
     public void setProposito(String proposito) { this.proposito = proposito; }
 
-    public Laboratorio getLaboratorio() { return plaboratorio; }
+    public Laboratorio getLaboratorio() { return laboratorio; }
     public void setLaboratorio(Laboratorio laboratorio) { this.laboratorio = laboratorio; }
 
     public Usuario getUsuario() { return usuario; }

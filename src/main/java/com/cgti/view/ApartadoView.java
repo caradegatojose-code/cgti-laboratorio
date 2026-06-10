@@ -1,7 +1,6 @@
 package com.cgti.view;
 
 import com.cgti.model.*;
-import com.cgti.repository.LaboratorioRepository;
 import com.cgti.repository.EquipoRepository;
 import com.cgti.service.ApartadoService;
 import javafx.collections.FXCollections;
@@ -22,12 +21,10 @@ public class ApartadoView {
         Label titulo = new Label("Apartar Laboratorio");
 
         ComboBox<Laboratorio> cmbLab = new ComboBox<>();
-        LaboratorioRepository labRepo = new LaboratorioRepository();
-        cmbLab.setItems(FXCollections.observableArrayList(labRepo.listarTodos()));
+        cmbLab.getItems().addAll(Laboratorio.values());
 
         DatePicker dpFecha = new DatePicker();
 
-        // Horas con ComboBox para evitar errores de formato
         ComboBox<String> cmbHoraInicio = new ComboBox<>();
         ComboBox<String> cmbHoraFin = new ComboBox<>();
         for (int h = 7; h <= 21; h++) {
@@ -36,9 +33,6 @@ public class ApartadoView {
             cmbHoraFin.getItems().add(String.format("%02d:00", h));
             cmbHoraFin.getItems().add(String.format("%02d:30", h));
         }
-
-        TextField txtProposito = new TextField();
-        txtProposito.setPromptText("Propósito");
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20));
@@ -51,7 +45,6 @@ public class ApartadoView {
             new Label("Hora fin:"), cmbHoraFin
         );
 
-        // Propósito: alumno tiene opciones fijas, docente campo libre
         ComboBox<String> cmbProposito = new ComboBox<>();
         ComboBox<Equipo> cmbEquipo = new ComboBox<>();
 
@@ -61,7 +54,7 @@ public class ApartadoView {
             cmbLab.setOnAction(e -> {
                 if (cmbLab.getValue() != null) {
                     cmbEquipo.setItems(FXCollections.observableArrayList(
-                        equipoRepo.listarPorLaboratorio(cmbLab.getValue().getId())));
+                        equipoRepo.listarPorLaboratorio(cmbLab.getValue().name())));
                 }
             });
             layout.getChildren().addAll(
@@ -111,7 +104,7 @@ public class ApartadoView {
                 }
                 lblMensaje.setText(resultado);
             } catch (Exception ex) {
-                lblMensaje.setText("Error al procesar la solicitud");
+                lblMensaje.setText("Error: " + ex.getMessage());
             }
         });
 

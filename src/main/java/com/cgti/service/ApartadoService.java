@@ -13,7 +13,7 @@ public class ApartadoService {
     public String apartarLaboratorio(Usuario usuario, Laboratorio laboratorio,
             LocalDateTime inicio, LocalDateTime fin, String proposito) {
 
-        if (repo.laboratorioOcupado(laboratorio.getId(), inicio, fin)) {
+        if (repo.laboratorioOcupado(laboratorio.name(), inicio, fin)) {
             return "El laboratorio ya está ocupado en ese horario";
         }
 
@@ -32,7 +32,7 @@ public class ApartadoService {
     public String apartarEquipo(Usuario usuario, Laboratorio laboratorio, Equipo equipo,
             LocalDateTime inicio, LocalDateTime fin, String proposito) {
 
-        if (repo.laboratorioOcupado(laboratorio.getId(), inicio, fin)) {
+        if (repo.laboratorioOcupado(laboratorio.name(), inicio, fin)) {
             return "El laboratorio está ocupado por un docente en ese horario";
         }
 

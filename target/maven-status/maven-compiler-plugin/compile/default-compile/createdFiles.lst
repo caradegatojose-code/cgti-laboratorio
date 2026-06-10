@@ -7,6 +7,7 @@ com/cgti/view/RegistroAlumnoView.class
 com/cgti/model/Rol.class
 com/cgti/view/InicioView.class
 com/cgti/view/RegistroUsuarioView$1.class
+com/cgti/model/TipoSoftware.class
 com/cgti/repository/ApartadoRepository.class
 com/cgti/model/DiaSemana.class
 com/cgti/view/UsuarioView.class
@@ -14,9 +15,7 @@ com/cgti/view/DashboardView.class
 com/cgti/model/Apartado.class
 com/cgti/model/Usuario.class
 com/cgti/model/EstadoApartado.class
-com/cgti/model/Software.class
 com/cgti/model/Alumno.class
-com/cgti/repository/LaboratorioRepository.class
 com/cgti/model/Administrador.class
 com/cgti/model/Registro.class
 com/cgti/view/ApartadoView.class

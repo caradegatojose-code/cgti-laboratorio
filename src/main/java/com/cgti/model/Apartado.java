@@ -13,8 +13,8 @@ public class Apartado {
     @ManyToOne // mucho a uno 
     private Usuario usuario; // muchos apartados pueden pertenecer a un usuario
 
-    @ManyToOne
-    private Laboratorio laboratorio; // muchos apartados pueden estar asociados al mismo laboratorio
+   @Enumerated(EnumType.STRING)
+   private Laboratorio laboratorio;
     
     @ManyToOne
     private Equipo equipo; // muchos apartados pueden pertenecer a un equi´po

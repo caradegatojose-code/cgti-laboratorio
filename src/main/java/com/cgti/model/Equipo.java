@@ -11,8 +11,8 @@ public class Equipo {
   private String nombreEqp;
   private String observacion; 
 
-  @ManyToOne // uno a muchos
-  private Laboratorio laboratorio; // muchos equipos pertenecen a un laboratorio
+  @Enumerated(EnumType.STRING)
+  private Laboratorio laboratorio;
 
   @ElementCollection // En la base de datos se creará una tabla separada para guardar los valores del enum, con una clave foránea hacia la tabla equipo
   @Enumerated(EnumType.STRING)//  en enum los datos son String
