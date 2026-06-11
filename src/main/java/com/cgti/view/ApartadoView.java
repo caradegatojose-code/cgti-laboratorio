@@ -34,46 +34,39 @@ public class ApartadoView {
             cmbHoraFin.getItems().add(String.format("%02d:30", h));
         }
 
+        ComboBox<String> cmbProposito = new ComboBox<>();
+        cmbProposito.getItems().addAll("Tarea", "Exposición", "Uso libre");
+
+        ComboBox<Equipo> cmbEquipo = new ComboBox<>();
+        EquipoRepository equipoRepo = new EquipoRepository();
+        cmbLab.setOnAction(e -> {
+            if (cmbLab.getValue() != null) {
+                cmbEquipo.setItems(FXCollections.observableArrayList(
+                    equipoRepo.listarPorLaboratorio(cmbLab.getValue().name())));
+            }
+        });
+
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
         layout.getChildren().addAll(
             titulo,
             new Label("Laboratorio:"), cmbLab,
+            new Label("Máquina:"), cmbEquipo,
             new Label("Fecha:"), dpFecha,
             new Label("Hora inicio:"), cmbHoraInicio,
-            new Label("Hora fin:"), cmbHoraFin
+            new Label("Hora fin:"), cmbHoraFin,
+            new Label("Propósito:"), cmbProposito
         );
-
-        ComboBox<String> cmbProposito = new ComboBox<>();
-        ComboBox<Equipo> cmbEquipo = new ComboBox<>();
-
-        if (usuario.getRol() == Rol.ALUMNO) {
-            cmbProposito.getItems().addAll("Tarea", "Exposición", "Uso libre");
-            EquipoRepository equipoRepo = new EquipoRepository();
-            cmbLab.setOnAction(e -> {
-                if (cmbLab.getValue() != null) {
-                    cmbEquipo.setItems(FXCollections.observableArrayList(
-                        equipoRepo.listarPorLaboratorio(cmbLab.getValue().name())));
-                }
-            });
-            layout.getChildren().addAll(
-                new Label("Propósito:"), cmbProposito,
-                new Label("Máquina:"), cmbEquipo
-            );
-        } else {
-            cmbProposito.getItems().addAll("Clase", "Asesoría", "Proyecto", "Otro");
-            layout.getChildren().addAll(new Label("Propósito:"), cmbProposito);
-        }
 
         Label lblMensaje = new Label("");
         Button btnApartar = new Button("Solicitar Apartado");
         Button btnRegresar = new Button("Regresar");
 
         btnApartar.setOnAction(e -> {
-            if (cmbLab.getValue() == null || dpFecha.getValue() == null ||
-                cmbHoraInicio.getValue() == null || cmbHoraFin.getValue() == null ||
-                cmbProposito.getValue() == null) {
+            if (cmbLab.getValue() == null || cmbEquipo.getValue() == null ||
+                dpFecha.getValue() == null || cmbHoraInicio.getValue() == null ||
+                cmbHoraFin.getValue() == null || cmbProposito.getValue() == null) {
                 lblMensaje.setText("Completa todos los campos");
                 return;
             }
@@ -90,18 +83,8 @@ public class ApartadoView {
                     return;
                 }
 
-                String resultado;
-                if (usuario.getRol() == Rol.ALUMNO) {
-                    if (cmbEquipo.getValue() == null) {
-                        lblMensaje.setText("Selecciona una máquina");
-                        return;
-                    }
-                    resultado = apartadoService.apartarEquipo(usuario, cmbLab.getValue(),
-                        cmbEquipo.getValue(), fechaInicio, fechaFin, cmbProposito.getValue());
-                } else {
-                    resultado = apartadoService.apartarLaboratorio(usuario, cmbLab.getValue(),
-                        fechaInicio, fechaFin, cmbProposito.getValue());
-                }
+                String resultado = apartadoService.apartarEquipo(usuario, cmbLab.getValue(),
+                    cmbEquipo.getValue(), fechaInicio, fechaFin, cmbProposito.getValue());
                 lblMensaje.setText(resultado);
             } catch (Exception ex) {
                 lblMensaje.setText("Error: " + ex.getMessage());
