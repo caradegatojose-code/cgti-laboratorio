@@ -1,0 +1,81 @@
+package com.cgti.view;
+
+import com.cgti.model.*;
+import com.cgti.service.EquipoService;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class EquipoView {
+
+    private EquipoService equipoService = new EquipoService();
+
+    public void mostrar(Stage stage, Usuario admin) {
+
+        Label titulo = new Label("Agregar Equipo");
+
+        ComboBox<Laboratorio> cmbLab = new ComboBox<>();
+        cmbLab.getItems().addAll(Laboratorio.values());
+
+        TextField txtNombre = new TextField();
+        txtNombre.setPromptText("Nombre del equipo (ej. COMP01)");
+
+        ComboBox<TipoSoftware> cmbSoftware = new ComboBox<>();
+        cmbSoftware.getItems().addAll(TipoSoftware.values());
+
+        TextArea txtObservacion = new TextArea();
+        txtObservacion.setPromptText("Observación (opcional)");
+        txtObservacion.setPrefRowCount(3);
+
+        Label lblMensaje = new Label("");
+        Button btnGuardar = new Button("Guardar Equipo");
+        Button btnRegresar = new Button("Regresar");
+
+        btnGuardar.setOnAction(e -> {
+            if (cmbLab.getValue() == null || txtNombre.getText().isEmpty() ||
+                cmbSoftware.getValue() == null) {
+                lblMensaje.setText("Completa todos los campos obligatorios");
+                return;
+            }
+
+            Equipo equipo = new Equipo();
+            equipo.setLaboratorio(cmbLab.getValue());
+            equipo.setNombreEqp(txtNombre.getText());
+            equipo.setObservacion(txtObservacion.getText());
+
+            java.util.List<TipoSoftware> lista = new java.util.ArrayList<>();
+            lista.add(cmbSoftware.getValue());
+            equipo.setSoftwares(lista);
+
+            equipoService.guardar(equipo);
+            lblMensaje.setText("Equipo guardado correctamente");
+
+            txtNombre.clear();
+            txtObservacion.clear();
+            cmbLab.setValue(null);
+            cmbSoftware.setValue(null);
+        });
+
+        btnRegresar.setOnAction(e -> new DashboardView().mostrar(stage, admin));
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20));
+        layout.setAlignment(Pos.CENTER);
+        layout.getChildren().addAll(
+            titulo,
+            new Label("Laboratorio:"), cmbLab,
+            new Label("Nombre del equipo:"), txtNombre,
+            new Label("Tipo de software:"), cmbSoftware,
+            new Label("Observación:"), txtObservacion,
+            btnGuardar, lblMensaje, btnRegresar
+        );
+
+        Scene scene = new Scene(layout, 450, 550);
+        stage.setTitle("Equipos - CGTI");
+        stage.setScene(scene);
+        stage.show();
+    }
+}
