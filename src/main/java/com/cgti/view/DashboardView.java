@@ -22,6 +22,10 @@ public class DashboardView {
             btnUsuarios.setMinWidth(200);
             btnUsuarios.setOnAction(e -> new UsuarioView().mostrar(stage, usuario));
             menu.getChildren().addAll(btnUsuarios );
+            Button btnEquipos = new Button("Gestionar Equipos");
+            btnEquipos.setMinWidth(200);
+            btnEquipos.setOnAction(e -> new EquipoView().mostrar(stage, usuario));
+            menu.getChildren().add(btnEquipos);
 
         } else if (usuario.getRol() == Rol.ALUMNO) {
             Button btnRegistrar = new Button("Registrar Entrada/Salida");
